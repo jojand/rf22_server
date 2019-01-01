@@ -1,0 +1,9 @@
+.cproject
+.gitignore.swp
+.project
+.settings/
+.idea/*
+Release/
+sloeber.ino.cpp
+rf22_server.iml
+test/

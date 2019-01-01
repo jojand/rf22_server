@@ -1,0 +1,2 @@
+RadioHead/1.83 (http://www.airspayce.com/mikem/arduino/RadioHead/)
+avr/1.6.20/libraries/SPI
