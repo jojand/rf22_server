@@ -47,13 +47,13 @@
 #define MQTT_RSSI_TOPIC			"/rssi"
 
 #ifdef RF_22
-#define TX_POWER					RH_RF22_TXPOW_11DBM
+#define TX_POWER					RH_RF22_TXPOW_5DBM
 #elif defined RF_95
 #define TX_POWER					17
 #endif
 
-#define DEFAULT_SENSOR_TX_POWER		RH_RF22_TXPOW_11DBM
-#define DEFAULT_SENSOR_TX_PERIOD	15
+#define DEFAULT_SENSOR_TX_POWER		RH_RF22_TXPOW_5DBM
+#define DEFAULT_SENSOR_TX_PERIOD	10
 #define SLOW_LOOP					10000
 
 #ifdef RF_22
@@ -251,7 +251,7 @@ void slowLoop() {
 
     if ((millis() - timeLoop) >= SLOW_LOOP) {
         timeLoop = millis();
-        Serial << MQTT_HEADER << MQTT_TOPIC_PREFIX << F("heartbeat ") << timeLoop << "*" << '\n';
+        Serial << MQTT_HEADER << MQTT_TOPIC_PREFIX << F("base/heartbeat ") << timeLoop << "*" << '\n';
     }
 }
 
