@@ -1,6 +1,6 @@
 /*
  * Base radio station based on rf22 modules
- * [MQTT] rf/config 1/1/0*
+ * [MQTT] rf/<address>/config 1/1/0*
  */
 
 #define RF_22
@@ -32,7 +32,7 @@
 #define INFO_HEADER     F("[INFO] ")
 #define MQTT_HEADER     F("[MQTT] ")
 
-#define MQTT_RF_CONFIG_PREFIX	"rf/config"
+#define MQTT_RF_CONFIG_PREFIX	"rf/config/200"
 #define MQTT_TOPIC_PREFIX 		"rf/"
 #define MQTT_DS_TEMPERATURE 	"/dst"
 #define MQTT_DH_TEMPERATURE 	"/dht"
@@ -251,7 +251,7 @@ void slowLoop() {
 
     if ((millis() - timeLoop) >= SLOW_LOOP) {
         timeLoop = millis();
-        Serial << MQTT_HEADER << MQTT_TOPIC_PREFIX << F("heartbeat ") << timeLoop << "*" << '\n';
+        Serial << MQTT_HEADER << MQTT_TOPIC_PREFIX << SERVER_ADDRESS << F("/heartbeat ") << timeLoop << "*" << '\n';
     }
 }
 
