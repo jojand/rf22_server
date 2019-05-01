@@ -3,8 +3,8 @@
  * [MQTT] rf/<address>/config 1/1/0*
  */
 
-#define RF_22
-//#define RF_95
+//#define RF_22
+#define RF_95
 
 //#define RAM_DEBUG
 //#define SERIAL_DEBUG
@@ -52,7 +52,11 @@
 #define TX_POWER					17
 #endif
 
+#ifdef RF_22
 #define DEFAULT_SENSOR_TX_POWER		RH_RF22_TXPOW_11DBM
+#elif defined RF_95
+#define DEFAULT_SENSOR_TX_POWER		17
+#endif
 #define DEFAULT_SENSOR_TX_PERIOD	15
 #define SLOW_LOOP					10000
 
@@ -71,14 +75,22 @@ uint8_t inBuffer[RF_BUFFER_SIZE];
 // out buffer used to setup of the remote sensor
 uint8_t outBuffer[RF_BUFFER_SIZE];
 
-#define SI_4432_SHDN	4
+#define RADIO_SHDN	4
 
 void radioOn() {
-	digitalWrite(SI_4432_SHDN, LOW);
+#ifdef RF_22
+	digitalWrite(RADIO_SHDN, LOW);
+#elif defined RF_95
+	digitalWrite(RADIO_SHDN, HIGH);
+#endif
 }
 
 void radioOff() {
-	digitalWrite(SI_4432_SHDN, HIGH);
+#ifdef RF_22
+	digitalWrite(RADIO_SHDN, HIGH);
+#elif defined RF_95
+	digitalWrite(RADIO_SHDN, LOW);
+#endif
 }
 
 void setup() {
@@ -100,9 +112,11 @@ void setup() {
 	wdt_enable(WDTO_8S);
 
 	// init radio
-	pinMode(SI_4432_SHDN, OUTPUT);
+	pinMode(RADIO_SHDN, OUTPUT);
 	radioOff();
+	delay(1000);
 	radioOn();
+	delay(500);
 
 	if (!radio.init()) {
 		Serial << ERROR_HEADER << F("radio init failed! Stopping.") << endl;
@@ -178,6 +192,7 @@ void radioLoop() {
 #ifdef SERIAL_DEBUG
 				Serial << ERROR_HEADER << F("Receive failed threshold exceeded! Reset will be performed.") << endl;
 #endif
+				Serial << MQTT_HEADER << MQTT_TOPIC_PREFIX << SERVER_ADDRESS << F("/debug RCV_THRESHOLD_RESET") << "*" << '\n';
 				while(true); // will cause watchdog reset
 			}
 		}
