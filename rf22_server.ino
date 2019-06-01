@@ -7,7 +7,7 @@
 #define RF_95
 
 //#define RAM_DEBUG
-//#define SERIAL_DEBUG
+#define SERIAL_DEBUG
 
 #ifdef RF_22
 #include <RH_RF22.h>
@@ -32,7 +32,7 @@
 #define INFO_HEADER     F("[INFO] ")
 #define MQTT_HEADER     F("[MQTT] ")
 
-#define MQTT_RF_CONFIG_PREFIX	"rf/config/200"
+#define MQTT_RF_CONFIG_PREFIX	"rf/config"
 #define MQTT_TOPIC_PREFIX 		"rf/"
 #define MQTT_DS_TEMPERATURE 	"/dst"
 #define MQTT_DH_TEMPERATURE 	"/dht"
@@ -49,15 +49,15 @@
 #ifdef RF_22
 #define TX_POWER					RH_RF22_TXPOW_11DBM
 #elif defined RF_95
-#define TX_POWER					17
+#define TX_POWER					8
 #endif
 
 #ifdef RF_22
 #define DEFAULT_SENSOR_TX_POWER		RH_RF22_TXPOW_11DBM
 #elif defined RF_95
-#define DEFAULT_SENSOR_TX_POWER		17
+#define DEFAULT_SENSOR_TX_POWER		1
 #endif
-#define DEFAULT_SENSOR_TX_PERIOD	15
+#define DEFAULT_SENSOR_TX_PERIOD	2
 #define SLOW_LOOP					10000
 
 #ifdef RF_22
