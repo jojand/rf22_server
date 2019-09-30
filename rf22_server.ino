@@ -1,6 +1,7 @@
 /*
  * Base radio station based on rf22 modules
  * [MQTT] rf/<address>/config 1/1/0*
+ * 							  (version)/(tx interval)/(tx power)
  */
 
 //#define RF_22
